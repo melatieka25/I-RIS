@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>i-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mataKuliah'})"></nav>
+<div class="container" style="width:50%">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div class="justify-content-center">
+        <div style="margin: auto; width: 80%; text-align: center">
+          <h2 style="font-weight: bold; padding-top: 10px;" >Tambah Mata Kuliah Baru</h2>
+        <br>
+        </div>
+        <form th:action="@{/mata-kuliah/create-matakuliah}" th:object="${mataKuliah}" method="POST">
+
+          <div class="container">
+            <br>
+            <div class="row">
+              <div class="col">
+                <p style="font-weight: bold;">Nama Mata Kuliah</p>
+                <input class="form-control" type="text" placeholder="Nama mata kuliah.." th:field="*{namaMatkul}"/>
+              </div>
+            </div>
+            <div class="row">
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">Hari</p>
+                <input class="form-control" type="text" th:field="*{hari}" placeholder="Hari kelas mata kuliah.."/>
+              </div>
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">SKS</p>
+                <input class="form-control" type="number" th:field="*{sks}"/>
+              </div>
+            </div>
+            <div class="row">
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">Waktu Mulai</p>
+                <input class="form-control" type="time" th:field="*{waktuMulai}"/>
+              </div>
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">Kapasitas</p>
+                <input class="form-control" type="number" th:field="*{kapasitasKelas}"/>
+              </div>
+            </div>
+            <div class="row" >
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">Semester</p>
+                <select class="form-select" th:field="*{semester}">
+                  <option value="Ganjil">Ganjil</option>
+                  <option value="Genap">Genap</option>
+                </select>
+              </div>
+              <div style="margin-top:20px;" class="col">
+              </div>
+            </div>
+
+            <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+            <div class="row" th:each="dosenMataKuliah, iterationStatus: *{listDosenMataKuliah}">
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">Pengajar</p>
+                <select name="dosen" th:field="*{listDosenMataKuliah[__${iterationStatus.index}__].dosen.nip}" class="form-control">
+                  <div th:each="dosenEx, iterarionStatus2 : ${listDosen}">
+                    <option th:value="${dosenEx.nip}" th:text="${dosenEx.getNamaLengkap()}"></option>
+                  </div>
+                </select>
+              </div>
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">Ruang Kelas</p>
+                <input class="form-control" type="text" name="ruangKelas" th:field="*{listDosenMataKuliah[__${iterationStatus.index}__].ruangKelas}"/>
+              </div>
+              <div style="margin-top:60px;" class="col">
+                <button th:value="${iterationStatus.index}" class="btn btn-danger" type="submit" name="deleteRowDosen">Delete</button>
+              </div>
+            </div>
+
+            <div class="row" >
+              <div style="margin-top:20px;" class="col">
+                <button class="btn btn-primary" type="submit" name="addRowDosen" style="margin: 5px;background-color: #f2bb22; border: none; color:black; padding:10px; font-weight:bold;">Tambah Pengajar</button>
+              </div>
+              <div style="margin-top:20px;" class="col">
+              </div>
+            </div>
+        </form>
+        <div style="padding-top:20px; text-align: center; font-weight: bold;">
+          <a class="btn btn-outline-secondary"style="margin: 10px; width: 40%;" href="/">Kembali</a>
+          <button class="btn btn-primary" style="margin: 10px;font-weight: bold; background-color: #258a85; border: none; width:40%;" type="submit" name="save">Simpan</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

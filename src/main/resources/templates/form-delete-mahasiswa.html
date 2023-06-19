@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>I-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mahasiswa'})"></nav>
+<a class="btn btn-link" style="color: #258a85" href="/mahasiswa"><- List Mahasiswa</a>
+<div class="container" style="width:75%; padding-top:50px;">
+      <div class="justify-content-center" style="margin: auto; padding-top: 10px; width: 80%; padding: 20px; text-align: center">
+        <h2 style="font-weight: bold; padding-top: 10px;">Hapus Mahasiswa</h2>
+        <br>
+        <form style="margin: 20px;" th:action="@{/mahasiswa/delete}" th:object="${allMahasiswa}" method="POST">
+          <table class="table table-striped">
+            <thead style="background-color: #f2bb22">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">NPM</th>
+              <th scope="col">Nama Mahasiswa</th>
+              <th scope="col">Status</th>
+              <th scope="col">Pilih</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mahasiswa, iterationStatus : ${listMahasiswaEx}" th:if="${mahasiswa.statusMahasiswa == false}">
+              <th scope="row" th:text="${iterationStatus.index + 1}"></th>
+              <td th:text="${mahasiswa.npm}"></td>
+              <td th:text="${mahasiswa.namaDepan} + ' ' + ${mahasiswa.namaBelakang}"></td>
+              <td th:if="${mahasiswa.statusMahasiswa == false}">Non-aktif</td>
+              <td>
+                <input class="form-check-input" type="checkbox" th:field="*{listNpmMahasiswaDelete[__${iterationStatus.index}__]}"
+                       th:value="${mahasiswa.npm}"
+                       id="flexCheckDefault">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <input style="margin-top:20px; font-weight: bold" type="submit" value="- Delete Mahasiswa" class="btn btn-danger">
+        </form>
+        <br>
+      </div>
+</div>
+
+</div>
+</body>
+</html>

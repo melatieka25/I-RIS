@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>i-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mahasiswa'})"></nav>
+<div class="container" style="width:50%">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div class="justify-content-center">
+        <div style="margin: auto; width: 80%; text-align: center">
+          <h2 style="font-weight: bold; padding-top: 10px;" >Tambah Mahasiswa</h2>
+        <br>
+        </div>
+        <form th:action="@{/mahasiswa/create-mahasiswa}" th:object="${mahasiswa}" method="POST">
+
+          <div class="container">
+            <br>
+            <div class="row">
+              <div class="col">
+                <p style="font-weight: bold;">Nama Mahasiswa</p>
+                <input class="form-control" type="text" placeholder="Nama Depan" name="namaDepan"/>
+              </div>
+              <div class="col">
+                <input style="margin-top:40px" class="form-control" type="text" placeholder="Nama Belakang" name="namaBelakang"/>
+              </div>
+            </div>
+            <div class="row">
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">NPM</p>
+                <input class="form-control" type="text" name="npm" placeholder="NPM"/>
+              </div>
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">Status</p>
+                <select  class="form-select" name="statusMahasiswa">
+                  <option value="1">Aktif</option>
+                  <option value="0">Non-Aktif</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div style="margin-top:20px;" class="col">
+                <p style="font-weight: bold;">Email</p>
+                <input class="form-control" type="text" name="email" placeholder="Email"/>
+              </div>
+              <div style="margin-top:20px;" class="col">
+              </div>
+            </div>
+            <br>          
+        </form>
+        <div style="margin: auto; padding-top:20px; text-align: center; font-weight: bold;">
+          <a class="btn btn-outline-secondary"style="margin: 10px; width: 40%" href="/">Kembali</a>
+          <button class="btn btn-primary" style="margin: 10px;font-weight: bold; background-color: #258a85; border: none; width:40%" type="submit">Simpan</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

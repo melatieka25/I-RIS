@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>i-RIS</title>
+    <style type="text/css">
+        h2.detail { color: black;}
+        span.npm { color: #258a85; font-weight:bold;}
+        </style>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mahasiswa'})"></nav>
+<div class="container">
+    <div style="margin: auto; padding-top: 40px; width: 80%; padding: 20px; text-align: center">
+        <div class="justify-content-center">
+            <h2 class="detail">Mahasiswa dengan NPM <span class="npm" th:text="${npm}"></span> telah berhasil diubah.</h2>
+            <br>
+            <a class="btn btn-outline-secondary"style="margin-top: 20px; width: 20%" href="/">Kembali</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

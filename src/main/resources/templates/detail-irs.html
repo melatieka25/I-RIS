@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>i-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mahasiswa'})"></nav>
+<a class="btn btn-link" style="color: #258a85" th:href="@{/mahasiswa/} + ${mahasiswa.npm}"><- Detail Mahasiswa</a>
+<div class="container" style="padding-top:20px;">
+  <h2 style="font-weight: bold; text-align:center">Detail IRS</h2>
+  <div class="container" style="width:50%;">
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="container">
+        <br>
+        <div class="row">
+          <div class="col">
+            <p style="font-weight: bold; color: #258a85">ID</p>
+            <p th:text="${irs.id}"></p>
+          </div>
+          <div class="col">
+            <p style="font-weight: bold; color: #258a85">Status</p>
+            <p th:text="${irs.status}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div style="margin-top:20px;" class="col">
+            <p style="font-weight: bold; color: #258a85">Semester Mahasiswa</p>
+            <p th:text="${irs.semester}"></p>
+          </div>
+          <div style="margin-top:20px;" class="col">
+            <p style="font-weight: bold; color: #258a85">Total SKS</p>
+            <p th:text="${irs.getTotalSks()} + ' SKS'"></p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="justify-content-center">
+
+        <div class="col" div th:if="${irs.listMataKuliah.size() != 0}">
+          <br>
+          <div style="display: flex;
+          justify-content: space-between;">
+          <h4 style="font-weight: bold; text-align:left">List Mata Kuliah</h4>
+          </div>
+          <table class="table table-striped" >
+            <thead style="background-color: #f2bb22">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Code</th>
+              <th scope="col">Nama Mata Kuliah</th>
+              <th scope="col">Sem.</th>
+              <th scope="col">SKS</th>
+              <th scope="col">Hari</th>
+              <th scope="col">Waktu</th>
+              <th scope="col">Kapasitas</th>
+              <th scope="col">Total Mahasiswa</th>
+              <th scope="col">Ruang</th>
+              <th scope="col">Pengajar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mataKuliah, iterationStatus : ${irs.listMataKuliah}">
+              <th scope="row" th:text="${iterationStatus.index + 1}"></th>
+              <td th:text="${mataKuliah.code}"></td>
+              <td th:text="${mataKuliah.namaMatkul}"></td>
+              <td th:text="${mataKuliah.semester}"></td>
+              <td th:text="${mataKuliah.sks}"></td>
+              <td th:text="${mataKuliah.hari}"></td>
+              <td th:text="${mataKuliah.waktuMulai} + ' - ' + ${mataKuliah.waktuSelesai}"></td>
+              <td th:text="${mataKuliah.kapasitasKelas}"></td>
+              <td th:text="${mataKuliah.getTotalMahasiswa()}"></td>
+              <td th:text="${mataKuliah.getRuang()}"></td>
+              <td th:text="${mataKuliah.getDosen()}"></td>
+            </tr>
+            </tbody>
+          </table>
+          <hr>
+        </div>
+        <div class="col" div th:unless="${irs.listMataKuliah.size() != 0}">
+          <h3 style="margin-top: 20px; text-align: center">Tidak ada Mata Kuliah yang diambil</h3>
+        <br>
+      </div>
+        <br>
+      </div>
+</div>
+
+</body>
+</html>

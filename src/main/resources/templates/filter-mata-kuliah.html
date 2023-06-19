@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>i-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'filter'})"></nav>
+<div class="container">
+      <div class="justify-content-center" style="margin: auto; padding-top: 10px; width: 50%; padding: 10px; text-align: center">
+        <h2 style="font-weight: bold; padding-top: 10px;">Filter Mata Kuliah</h2>
+        <br>
+        <form th:action="@{/filter/mata-kuliah}" method="GET">
+          <div class="row">
+            <div class="col">
+              <p style="font-weight: bold; text-align:left;">Nama Dosen</p>
+              <select name="dosen" class="form-control">
+                <div th:each="dosenEx, iterarionStatus : ${listDosen}">
+                  <option th:value="${dosenEx.nip}" th:text="${dosenEx.getNamaLengkap()}"></option>
+                </div>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p style="margin-top:20px; font-weight: bold; text-align:left;">Semester</p>
+              <input class="form-control" type="text" name="semester"/>
+            </div>
+          </div>
+
+          <div style="padding-top:20px; text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-secondary"style="margin: 10px; width: 40%;" href="/">Kembali</a>
+            <button class="btn btn-primary" style="margin: 10px;font-weight: bold; background-color: #258a85; border: none; width:40%;" type="submit">Search</button>
+          </div>
+        </form>
+      </div>
+</div>
+
+</body>
+</html>

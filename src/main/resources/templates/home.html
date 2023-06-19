@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>I-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'beranda'})"></nav>
+<div class="container" style="width:50%;">
+  <div class="card text-center mt-5" style="background-color: #258a85; text-align: center">
+    <div class="card-body">
+      <div class="justify-content-center">
+        <h2 class="pt-5" style="font-weight: bold; color: white">Welcome to i-RIS!</h2>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin: auto; margin-top: 80px; padding: 10px; text-align: center">
+  <h2 style="font-weight: bold; color: #258a85">List of Features:</h2>
+  <div style="margin:40px; padding: 5px;">
+    <a class="btn btn-primary btn-lg" style="margin: 12px;background-color: #258a85; font-weight: bold; border: none; width:15%;" href="/mahasiswa">Mahasiswa</a>
+    <a class="btn btn-primary btn-lg" style="margin: 12px;background-color: #258a85; font-weight: bold; border: none; width:15%;" href="/mata-kuliah">Mata Kuliah</a>
+    <a class="btn btn-primary btn-lg" style="background-color: #258a85; margin: 12px;font-weight: bold; border: none; width:15%;" href="/filter/mata-kuliah?dosen=null&semester=null">Filter</a>
+  </div>
+</div>
+
+
+</body>
+</html>

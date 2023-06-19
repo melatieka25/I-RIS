@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>i-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mahasiswa'})"></nav>
+<a class="btn btn-link" style="color: #258a85" href="/mahasiswa"><- List Mahasiswa</a>
+<div class="container" style="padding-top:20px;">
+  <h2 style="font-weight: bold; text-align:center">Detail Mahasiswa</h2>
+  <div class="container" style="width:50%;">
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="container">
+        <br>
+        <div class="row">
+          <div class="col">
+            <p style="font-weight: bold; color: #258a85">NPM</p>
+            <p th:text="${mahasiswa.npm}"></p>
+          </div>
+          <div class="col">
+            <p style="font-weight: bold; color: #258a85">Email</p>
+            <p th:text="${mahasiswa.email}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div style="margin-top:20px;" class="col">
+            <p style="font-weight: bold; color: #258a85">Nama Mahasiswa</p>
+            <p th:text="${mahasiswa.namaDepan} + ' ' + ${mahasiswa.namaBelakang}"></p>
+          </div>
+          <div style="margin-top:20px;" class="col">
+            <p style="font-weight: bold; color: #258a85">Status</p>
+            <p th:if="${mahasiswa.statusMahasiswa == false}">Non-aktif</p>
+          <p th:if="${mahasiswa.statusMahasiswa == true}">Aktif</p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="justify-content-center">
+
+        <div class="col">
+          <br>
+          <div style="display: flex;
+          justify-content: space-between;">
+          <h4 style="font-weight: bold; text-align:left">List IRS</h4>
+          <a style="margin: 12px;background-color: #258a85; font-weight: bold; border: none; width:15%" class="btn btn-primary" th:href="@{/mahasiswa/} + ${mahasiswa.npm} + @{/create-irs}">+ Tambah IRS</a>
+          </div>
+          <table class="table table-striped" >
+            <thead style="background-color: #f2bb22">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Semester</th>
+              <th scope="col">Total SKS</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="irs : ${listIrs}">
+              <th scope="row" th:text="${irs.id}"></th>
+              <td th:text="${irs.semester}"></td>
+              <td th:text="${irs.getTotalSks()}"></td>
+              <td th:text="${irs.status}"></td>
+
+              <td><a style="margin: 5px;background-color: #258a85; border: none;" class="btn btn-primary" th:href="@{/mahasiswa/} + ${mahasiswa.npm} + @{/} + ${irs.id}">Detail</a><a style="margin: 5px;background-color: #f27c22; border: none;" class="btn btn-primary"  th:href="@{/mahasiswa/} + ${mahasiswa.npm} + @{/} + ${irs.id} + @{/update}">Edit</a></td>
+            </tr>
+            </tbody>
+          </table>
+          <hr>
+        </div>
+        <br>
+      </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>i-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'filter'})"></nav>
+<div class="container">
+  <div class="justify-content-center" style="margin: auto; padding-top: 10px; width: 50%; padding: 10px; text-align: center">
+    <h2 style="font-weight: bold; padding-top: 10px;">Filter Mata Kuliah</h2>
+    <br>
+    <form th:action="@{/filter/mata-kuliah}" method="GET">
+      <div class="row">
+        <div class="col">
+          <p style="font-weight: bold; text-align:left;">Nama Dosen</p>
+          <select name="dosen" class="form-control">
+            <div th:each="dosenEx, iterarionStatus : ${listDosen}">
+              <option th:value="${dosenEx.nip}" th:selected="${dosenEx.nip==nip}"th:text="${dosenEx.getNamaLengkap()}"></option>
+            </div>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p style="margin-top:20px; font-weight: bold; text-align:left;">Semester</p>
+          <input class="form-control" type="text" th:value="${semester}" name="semester"/>
+        </div>
+      </div>
+
+      <div style="padding-top:20px; text-align: center; font-weight: bold;">
+        <a class="btn btn-outline-secondary"style="margin: 10px; width: 40%;" href="/">Kembali</a>
+        <button class="btn btn-primary" style="margin: 10px;font-weight: bold; background-color: #258a85; border: none; width:40%;" type="submit">Search</button>
+      </div>
+    </form>
+  </div>
+        <div th:if="*{listMataKuliah.size() != 0}">
+          <table class="table table-striped">
+            <thead style="background-color: #f2bb22">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Code</th>
+              <th scope="col">Nama Mata Kuliah</th>
+              <th scope="col">Sem.</th>
+              <th scope="col">SKS</th>
+              <th scope="col">Hari</th>
+              <th scope="col">Waktu</th>
+              <th scope="col">Kapasitas</th>
+              <th scope="col">Total Mahasiswa</th>
+              <th scope="col">Pengajar</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mataKuliah, iterationStatus : ${listMataKuliah}">
+              <th scope="row" th:text="${iterationStatus.index + 1}"></th>
+              <td th:text="${mataKuliah.code}"></td>
+              <td th:text="${mataKuliah.namaMatkul}"></td>
+              <td th:text="${mataKuliah.semester}"></td>
+              <td th:text="${mataKuliah.sks}"></td>
+              <td th:text="${mataKuliah.hari}"></td>
+              <td th:text="${mataKuliah.waktuMulai} + ' - ' + ${mataKuliah.waktuSelesai}"></td>
+              <td th:text="${mataKuliah.kapasitasKelas}"></td>
+              <td th:text="${mataKuliah.getTotalMahasiswa()}"></td>
+              <td th:text="${mataKuliah.getDosen()}"></td>
+              <td><a class="btn btn-primary" th:href="@{/mata-kuliah/} + ${mataKuliah.id}")>Detail</a><a class="btn btn-danger" th:href="@{/mata-kuliah/} + ${mataKuliah.id} + @{/delete}">Delete</a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div th:unless="*{listMataKuliah.size() != 0}">
+          <h2> Hasil filter tidak ditemukan. Coba dengan dosen atau semester lain</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

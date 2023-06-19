@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>I-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mahasiswa'})"></nav>
+<div class="container" style="width:75%; padding-top:50px;">
+  <div class="justify-content-center">
+    <div style="margin: auto; padding-top: 10px; width: 80%; padding: 20px; text-align: center">
+      <h2 style="font-weight: bold; padding-top: 10px;" >List Mahasiswa</h2>
+      <div style="padding-top: 20px;">
+        <a class="btn btn-primary" href="/mahasiswa/create-mahasiswa" style="margin: 12px;background-color: #258a85; font-weight: bold; border: none; width:30%;">+ Tambah Mahasiswa</a>
+          <a style="margin: 12px;background-color:#e02d4e; font-weight: bold; border: none; width:30%;" class="btn btn-danger" href="/mahasiswa/delete">- Delete Mahasiswa</a>
+      </div>
+    <br>
+    </div>
+    <table style="margin: 20px;" class="table table-striped">
+      <thead style="background-color: #f2bb22">
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">NPM</th>
+        <th scope="col">Nama Mahasiswa</th>
+        <th scope="col">Status</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="mahasiswa, iterationStatus : ${listMahasiswa}">
+        <th scope="row" th:text="${iterationStatus.index + 1}"></th>
+        <td th:text="${mahasiswa.npm}"></td>
+        <td th:text="${mahasiswa.namaDepan} + ' ' + ${mahasiswa.namaBelakang}"></td>
+        <td th:if="${mahasiswa.statusMahasiswa == false}">Non-aktif</td>
+        <td th:if="${mahasiswa.statusMahasiswa == true}">Aktif</td>
+        <td>
+          <a style="margin: 5px;background-color: #258a85; border: none;" class="btn btn-primary" th:href="@{/mahasiswa/} + ${mahasiswa.npm}">Detail</a><a style="margin: 5px;background-color: #f27c22; border: none;" class="btn btn-primary" th:href="@{/mahasiswa/} + ${mahasiswa.npm} + @{/update}">Edit</a>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+    <br>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

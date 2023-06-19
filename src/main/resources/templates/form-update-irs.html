@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>i-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mahasiswa'})"></nav>
+<div class="container">
+      <div class="justify-content-center">
+        <div style="margin:auto; margin-button: 10px; width: 80%; text-align: center">
+        <h2 style="font-weight: bold; padding-top: 40px;">Update IRS</h2>
+        <br>
+        </div>
+
+        <form th:action="@{/mahasiswa/} + ${mahasiswa.npm} + @{/} + ${irs.id} + @{/update}" th:object="${irs}" method="POST">
+          <input type="hidden" th:field="*{id}" />
+          <div class="container" style="width:50%">
+            <br>
+            <div class="row" style="margin-bottom: 60px;">
+              <div class="col">
+                <p style="font-weight: bold;">ID</p>
+                <input class="form-control" type="text" th:field="*{id}" disabled/>
+              </div>
+              <div class="col">
+                <p style="font-weight: bold;">Semester</p>
+                <input class="form-control" type="text" th:field="*{semester}" disabled/>
+              </div>
+              <div class="col">
+                <p style="font-weight: bold;">Status</p>
+                <select class="form-select" th:field="*{status}">
+                  <option value="Belum Disetujui">Belum Disetujui</option>
+                  <option value="Disetujui">Disetujui</option>
+                </select>
+              </div>
+            </div>
+            <br>
+          </div>  
+
+          <table class="table table-striped">
+            <thead style="background-color: #f2bb22">
+            <tr>
+              <th scope="col">Pilih</th>
+              <th scope="col">Code</th>
+              <th scope="col">Nama Mata Kuliah</th>
+              <th scope="col">Sem.</th>
+              <th scope="col">SKS</th>
+              <th scope="col">Hari</th>
+              <th scope="col">Waktu</th>
+              <th scope="col">Kapasitas</th>
+              <th scope="col">Total Mahasiswa</th>
+              <th scope="col">Pengajar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mataKuliah, iterationStatus : ${listMataKuliah}">
+              <th>
+                <input class="form-check-input" type="checkbox"
+                       th:field="*{listMataKuliah[__${iterationStatus.index}__].id}"
+                th:value="${mataKuliah.id}"
+                       id="flexCheckDefault">
+              </th>
+              <td th:text="${mataKuliah.code}"></td>
+              <td th:text="${mataKuliah.namaMatkul}"></td>
+              <td th:text="${mataKuliah.semester}"></td>
+              <td th:text="${mataKuliah.sks}"></td>
+              <td th:text="${mataKuliah.hari}"></td>
+              <td th:text="${mataKuliah.waktuMulai} + ' - ' + ${mataKuliah.waktuSelesai}"></td>
+              <td th:text="${mataKuliah.kapasitasKelas}"></td>
+              <td th:text="${mataKuliah.getTotalMahasiswa()}"></td>
+              <td th:text="${mataKuliah.getDosen()}"></td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div style="margin: auto; padding-top:20px; text-align: center; font-weight: bold;">
+            <a class="btn btn-outline-secondary"style="margin: 10px; width: 20%" href="/">Kembali</a>
+            <button class="btn btn-primary" style="margin: 10px;font-weight: bold; background-color: #258a85; border: none; width:20%" type="submit">Simpan</button>
+          </div>
+        </form>
+      </div>
+</div>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <title>i-RIS</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (${'mataKuliah'})"></nav>
+<a class="btn btn-link" style="color: #258a85" href="/mata-kuliah"><- List Mata Kuliah</a>
+<div class="container" style="padding-top:20px;">
+  <h2 style="font-weight: bold; text-align:center">Detail Mata Kuliah</h2>
+  <div class="container" style="width:50%;">
+  <div class="card mt-3">
+    <div class="card-body">
+      <div class="container">
+        <br>
+        <div class="row">
+          <div class="col">
+            <p style="font-weight: bold; color: #258a85">Code</p>
+            <p th:text="${mataKuliah.code}"></p>
+          </div>
+          <div class="col">
+            <p style="font-weight: bold; color: #258a85">SKS</p>
+            <p th:text="${mataKuliah.sks}"></p>
+          </div>
+          <div class="col">
+            <p style="font-weight: bold; color: #258a85">Kapasitas</p>
+            <p th:text="${mataKuliah.kapasitasKelas}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div style="margin-top:20px;" class="col">
+            <p style="font-weight: bold; color: #258a85">Nama Mata Kuliah</p>
+            <p th:text="${mataKuliah.namaMatkul}"></p>
+          </div>
+          <div style="margin-top:20px;" class="col">
+            <p style="font-weight: bold; color: #258a85">Hari</p>
+            <p th:text="${mataKuliah.hari}"></p>
+          </div>
+          <div class="col" style="margin-top:20px;">
+            <p style="font-weight: bold; color: #258a85">Total Mahasiswa</p>
+            <p th:text="${mataKuliah.kapasitasKelas}"></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col" style="margin-top:20px;">
+            <p style="font-weight: bold; color: #258a85">Semester</p>
+            <p th:text="${mataKuliah.code}"></p>
+          </div>
+          <div class="col" style="margin-top:20px;">
+            <p style="font-weight: bold; color: #258a85">Waktu</p>
+            <p th:text= "${mataKuliah.waktuMulai} + ' - ' + ${mataKuliah.waktuSelesai}"></p>
+          </div>
+          <div class="col">
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="justify-content-center">
+
+        <div class="col">
+          <br>
+          <div style="display: flex;
+          justify-content: space-between;">
+          <h4 style="font-weight: bold; text-align:left">List Dosen</h4>
+          </div>
+          <table class="table table-striped" >
+            <thead style="background-color: #f2bb22">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Dosen Pengajar</th>
+              <th scope="col">Ruang Kelas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dosenMataKuliah, iterationStatus : ${listDosenMataKuliah}" >
+              <td th:text="${iterationStatus.index + 1}"></td>
+              <td th:text="${dosenMataKuliah.dosen.getNamaLengkap()}"></td>
+              <td th:text="${dosenMataKuliah.ruangKelas}"></td>
+            </tr>
+            </tbody>
+          </table>
+          <hr>
+        </div>
+        <br>
+      </div>
+</div>
+
+</body>
+</html>
